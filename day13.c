@@ -1,139 +1,19 @@
-#include "common.h"
-#include <ctype.h>
+CC=gcc
+SRC=src
+INC=inc
+BIN=bin
+OBJ=obj
+CFLAGS= -c -g-Wall
+day13:$(BIN)/day13
 
-extern int Cmd_validate(char *word);
-extern int free_allocated_memory(char **server_name,int count);
-extern char *concatenate_servernames(char *server_name[],int count);
-extern char *extract_servername(char *word);
+$(BIN)/day13:$(OBJ)/day13.o
+	$(CC) -o $(BIn)/day13 $(OBJ)/day13.o
 
-int cmd_validate(char *word)
-{
-	char *temp_var=NULL,*token=NULL;
-	int portNo,i=0,allAlphabets=1;
-	temp_var=(char*)calloc(strlen(word)+1,sizeof(char));
-	if(temp_var==NULL)
-	{
-		printf("Memory is not allocated");
-		return EXIT_FAILURE;
-	}
-	strcpy(temp_var,word);
-	token=strtok(temp_var,":");
-	while(i<strlen(token))
-	{
-		if(isalpha(token[i])==0)
-		{
-			allAphabets=0;
-		}
-		i++;
-	}
-	if(allAlphabets)
-	{
-		token=strtok(NULL,":");
-		if(token!=NULL)
-		{
-			portNo=atoi(token);
-			if(portNo>=0portNo<=1023)
-			{
-				free(temp_var);
-				temp_var=NULL;
-				return EXIT_SUCCESS;
-			}
-		}
-	}
-	free(temp_var);
-	temp_var=NULL;
-	return EXIT_FAILURE;
-}
+$(OBJ)/day13.o:$(SRC)/day13.c
+	$(CC) $(CFLAGS) $(SRC)/day13.c -I $(INC)/
 
-char *extract_servername(char *word)
-{
-	char *temp=NULL;
-	char *token=NULL;
-	int portNo;
-	char *servername=NULL;
-	temp=(char*)calloc(strlen(word)+1,sizeof(char));
-	strcpy(temp,word);
-	token=strtok(temp,":");
-	servername=(char*)calloc((strlen(token)+1),sizeof(char));
-	strcpy(servername,token);
-	printf("\nServername:%s",servername);
-	token=strtok(NULL,":");
-	portNo=atoi(token);
-	printf("\nPort NUmber:%d\n",portNo);
-	free(temp);
-	temp=NULL;
-	return servername;
-}
-char *concatenate_servernames(char *server_name[],int count);
-{
-	char *result=NULL;
-	int sizeof_result=0;i;
-	for(i=0;i<count;i++)
-	{
-		sizeof_result +=strlen(server_name[i]);
-	}
-	result=(char*)calloc(sizeof_result+count,sizeof(char));
-	for(i=0;i<count;i++)
-	{
-		if(i==0)
-		{
-			strcpy(result,server_name[i]);
-		}
-		else
-		{
-			strcat(result,server_name[i]);
-		}
-		if(i!=count-1)
-		{
-			strncat(result,"_",15);
-		}
-	}
-	return result;
-}
-
-
-int main(int argc, char *argv[])
-{
-	int i;
-	char *server_names;
-	char **server_name=NULL;
-	server_name=(char**)calloc(argc,sizeof(char));
-	char *concatenated_servernames=NULL;
-	servernames=NULL;
-	int count_valid_names=0;
-	if(argv>=4)
-	{
-		for(i=1;i<argc;i++)
-		{
-			if(cmd_validate(argv[i])==EXIT_SUCCESS)
-			{
-				server_names=extract_servername(argv[i]);
-				if(server_name!=NULL)
-				{
-					server_name[i]=NULL;
-
-					server_name[count-valid-names]=server_names;
-					count_valid_names++;
-				}
-				else
-				{
-					printf("\nMemory cannot be allocated\n");
-				}
-			}
-			else
-			{
-				printf("\n%s is not a valid word\n",argv[i]);
-			}
-		}
-		conacatenated_servernames=concatenate_servernames(server_name,count_valid_names);
-		printf("\n\nConcatenated Server Nmaes is %s\n",concatenated_servernames);
-	}
-	else
-	{
-		printf("Please enter atleast 3 arguments\n");
-	}
-	return EXIT_SUCCESS;
-}
-
-
-
+clean:
+	rm -f a.out *.o
+	rm -f $(OBJ)/*
+	rm -f $(BIN)/*
+	@echo "Cleaning Complete!"
