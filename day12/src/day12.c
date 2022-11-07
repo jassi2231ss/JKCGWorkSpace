@@ -1,3 +1,18 @@
+/**************************************************************
+ * *
+ * *
+ * *FILE NAME:day12.c
+ * *
+ * *DESCRIPTION:Print array in reversed order,sum of array elements and count the number of occurence of a number
+ * *
+ * *REVISED HISTORY:
+ * *-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * *DATE             NAME                          REFERENCE                   REASON
+ * *6 OCT2022      Jasmeet Kaur                   CAPG1234                printing array in reversed order and counting the number of occurence of a given element
+ * *Copyright @2022 Altran Group All Rights Reserved
+ * *-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * *
+ * */
 #include "common.h"
 void arrayDisplay(int array[],int count)
 {
